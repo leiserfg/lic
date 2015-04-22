@@ -1,18 +1,9 @@
-
-
 class boomer(object):
 
-    def __new__(cls, source):
-        for method in ['str', 'format', 'repr']:
-            method = '__%s__' % method
+    def __init__(self, fn):
+        self.fn = fn
 
-            def m(obj, *args, **kargs):
-                try:
-                    return obj._intern
-                except:
-                    obj._intern = source()
-                    return obj._intern
-
-            setattr(cls, method, m)
-
-        return object.__new__(cls)
+    def __format__(self, *args, **kargs):
+        if not hasattr(self, 'val'):
+            self.val = self.fn()
+        return self.val.__format__(*args, **kargs)

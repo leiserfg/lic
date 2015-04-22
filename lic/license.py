@@ -8,8 +8,6 @@ Tools to take a license.txt and generate a License object suitable for being use
 
 :license: BSD, see LICENSE for more details.
 """
-import re
-
 from datetime import date
 from getpass import getuser
 from os.path import basename
@@ -19,14 +17,15 @@ from os import getcwd
 from toml import loads
 from click import prompt
 
+from lic.utils import boomer
 
-_replaces = {}
+replaces = {}
 
 
 def replace(*names):
     def wrap(fn):
         for name in names:
-            _replaces[name] = fn
+            replaces[name] = boomer(fn)
         return fn
     return wrap
 
@@ -42,15 +41,13 @@ def owner():
 
 
 @replace('project')
-def owner():
+def project():
     return prompt('Project Name', default=basename(getcwd()))
 
 
 class License(object):
 
     """Take a licence.txt and buld a License instance"""
-
-    _re_replaceable = re.compile('{([^{^}]+)}')
 
     def __init__(self, title, nick, category, source,
                  required, permitted, forbidden, body):
@@ -84,21 +81,9 @@ class License(object):
         if hasattr(self, '_body'):
             return self._body
 
-        body = self.body
-
-        replaceables = set(self._re_replaceable.findall(body))
-        replaces = {}
-
-        for r in replaceables:
-            if r in _replaces:
-                replaces[r] = _replaces[r]()
-            else:
-                replaces[r] = prompt(r)
-
-        self._body = body.format(**replaces)
+        self._body = self.body.format(**replaces)
 
         return self._body
-
 
     def __repr__(self):
         return u'<License: %s(%s)>' % (self.title, self.nick)

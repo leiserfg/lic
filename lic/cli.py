@@ -1,3 +1,5 @@
+from codecs import open
+
 import click
 
 from lic.manager import Manager
@@ -21,7 +23,7 @@ _list = list
 @pass_manager
 def list(manager, query, by_nick):
     """
-    List all the licenses whos name or (nick) match the query
+    List all the licenses whose name or (nick) match the query
     or all if there isn't query.
     """
     out = manager.list(query, by_nick)
@@ -31,17 +33,18 @@ def list(manager, query, by_nick):
         click.echo()
 
 
-
 @cli.command()
 @click.argument('query', required=True)
 @click.option('-n', '--by_nick', default=False, is_flag=True)
+@click.option('-o', '--out_path', default='./LICENSE')
 @pass_manager
-def echo(manager, query, by_nick):
+def write(manager, query, by_nick, out_path):
     """
-    Print the license that better match the query.
+    Write the license to output file
     """
     lic = manager.find_one(query, by_nick)
-    click.echo(lic.filledbody)
+    file = open(out_path, encoding='utf-8', mode='w')
+    click.echo(lic.filledbody, file=file)
 
 
 @cli.command()
