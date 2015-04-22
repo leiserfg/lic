@@ -1,31 +1,14 @@
-title= "GNU Affero General Public License v3.0"
-nickname= "GNU Affero GPL v3.0"
-category= "GPL"
-
-description="The GPL family of licenses is the most widely used free software license and has a strong copyleft requirement. When distributing derived works, the source code of the work must be made available under the same license. The AGPL family of licenses is distinguished from GPLv2 and GPLv3 in that hosted services using the code are considered distribution and trigger the copyleft requirements."
-
-
-required = [
-  "include-copyright",
-  "document-changes",
-  "disclose-source",
-  "network-use-disclose"
-]
-permitted = [
-  "commercial-use",
-  "modifications",
-  "distribution",
-  "patent-grant",
-  "private-use"
-]
-
-forbidden = [
-  "no-liability",
-  "no-sublicense"
-]
+category = "GPL"
+title = "GNU Affero General Public License v3.0"
+forbidden = [ "no-liability", "no-sublicense",]
+required = [ "include-copyright", "document-changes", "disclose-source", "network-use-disclose",]
+source = "http://www.gnu.org/licenses/agpl-3.0.txt"
+nickname = "GNU Affero GPL v3.0"
+permitted = [ "commercial-use", "modifications", "distribution", "patent-grant", "private-use",]
 
 ---
-{year}
+
+
                     GNU AFFERO GENERAL PUBLIC LICENSE
                        Version 3, 19 November 2007
 

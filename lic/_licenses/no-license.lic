@@ -1,0 +1,10 @@
+category = "No License"
+title = "No License"
+forbidden = [ "modifications", "distribution", "sublicense",]
+required = [ "include-copyright",]
+permitted = [ "commercial-use", "private-use",]
+
+---
+
+
+Copyright {year} {fullname}

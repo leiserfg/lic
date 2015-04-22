@@ -13,6 +13,7 @@ _user_licenses = get_app_dir('lic')
 
 licenses_paths = [join(_here, '_licenses')]
 
+
 class NotFound(Exception):
     pass
 

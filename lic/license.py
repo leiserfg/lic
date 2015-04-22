@@ -12,7 +12,7 @@ import re
 
 from datetime import date
 from getpass import getuser
-from os.path import dirname
+from os.path import basename
 from os import getcwd
 
 
@@ -31,33 +31,31 @@ def replace(*names):
     return wrap
 
 
-@replace('year')
+@replace('year', 'yyyy')
 def year():
     return prompt('Year', default=date.today().year, type=int)
 
 
-@replace('ower', 'author')
+@replace('fullname', 'owner', 'author')
 def owner():
     return prompt('Autor or Owner name', default=getuser())
 
 
 @replace('project')
 def owner():
-    return prompt('Project Name', default=dirname(getcwd()))
-
-
+    return prompt('Project Name', default=basename(getcwd()))
 
 
 class License(object):
 
     """Take a licence.txt and buld a License instance"""
 
-    _re_replaceable = re.compile('{([^}]+)}')
+    _re_replaceable = re.compile('{([^{^}]+)}')
 
     def __init__(self, title, nick, category, source,
                  required, permitted, forbidden, body):
         self.title = title
-        self.nick = nick
+        self.nick = nick or ''
         self.category = category
         self.source = source
         self.required = required
@@ -87,7 +85,7 @@ class License(object):
             return self._body
 
         body = self.body
-        
+
         replaceables = set(self._re_replaceable.findall(body))
         replaces = {}
 
@@ -97,9 +95,10 @@ class License(object):
             else:
                 replaces[r] = prompt(r)
 
-        print replaces
-        self._body = body.format(replaces)
+        self._body = body.format(**replaces)
 
         return self._body
 
 
+    def __repr__(self):
+        return u'<License: %s(%s)>' % (self.title, self.nick)

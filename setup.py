@@ -15,11 +15,13 @@ setup(
     url='github.com',   
     #long_description=open('README.rst').read(),
     #license='BSD License',
-    #entry_points = {
-    #    'console_scripts': ['lic = lic.cli:main'],
-    #},
+    entry_points = {
+        'console_scripts': ['lic = lic.cli:cli'],
+    },
     install_requires=[
         'toml',
-        'click'
+        'click',
+        'fuzzywuzzy',
+        'python-Levenshtein', # for making fuzzywuzzy 4x-10x faster 
         ]
 )
