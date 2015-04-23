@@ -14,7 +14,7 @@ setup(
     description='A tool to help choosing licenses',
     url='github.com',   
     #long_description=open('README.rst').read(),
-    #license='BSD License',
+    license='BSD License',
     entry_points = {
         'console_scripts': ['lic = lic.cli:cli'],
     },
