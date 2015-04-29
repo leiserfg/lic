@@ -43,8 +43,8 @@ def write(manager, query, by_nick, out_path):
     Write the license to output file
     """
     lic = manager.find_one(query, by_nick)
-    file = open(out_path, encoding='utf-8', mode='w')
-    click.echo(lic.filledbody, file=file)
+    with open(out_path, encoding='utf-8', mode='w') as file:
+        click.echo(lic.filledbody, file=file)
 
 
 @cli.command()
